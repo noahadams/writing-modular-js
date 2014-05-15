@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html class="foo">
+<head>
+  <meta charset="utf-8">
+  <title>resizeImages.js Tests</title>
+  <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css">
+  <script src="../bower_components/qunit/qunit/qunit.js"></script>
+  <script src="../bower_components/requirejs/require.js"></script>
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<div id="qunit"></div>
+
+
+<div id="qunit-fixture">
+    <div class="clickMe">Click Me!</div>
+</div>
+
+<script>
+    QUnit.config.autostart = false;
+    require.config({
+        "baseUrl": "../",
+        "paths": {
+            "jquery": "bower_components/jquery/jquery",
+        }
+    });
+    require(["jquery", "js/clickme"], function($, clickMe) {
+        module("clickme");
+        test('goes to thanks', function() {
+            $clickMe = $('.clickMe')
+            strictEqual($clickMe.text(), "Click Me!", "initial state is as expected");
+            
+            clickMe();
+            $clickMe.click();
+            
+            strictEqual($clickMe.text(), "Thanks!", "it worked");
+        });
+        start();
+    });
+</script>
+</body>
+</html>
